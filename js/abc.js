@@ -22,7 +22,7 @@ var abc_data = [
 		'dropsound':'/android_asset/www/drag-match/audio/c_cat.mp3',
 		'item': 'img/item_c.png',
 		'iheight': 150, 'iwidth' : 150,
-		'target': 'img/target_c.png', // ** image credit - http://fattcat.deviantart.com/art/Black-Cat-332754967
+		'target': 'img/target_c.png', // ** image credit - http://tigon.deviantart.com/art/Kittypet-Keiser-167637401
 		'correct': 'img/correct_c.png',
 		'theight': 300, 'twidth' : 300
 	},
