@@ -9,6 +9,8 @@ However, my objective is this -- I want to be able to share with you a simple ap
 
 At the moment, I don't have much documentation for this. But most codes are commentend and you can take a look at that. Generally, I try to separate the data for the app from the working codes. The data is a set of JSON array that contains your draggable items and its target items. For example, the letter A can only be dragged to the image of an Apple.
 
+Before I forget, I use images from members at DeviantArt.com. I include links to them in the JSON data file. Please respect these people and leave the credits intact if you are using the same images.
+
 Alright, that's all for now.
 
 DINO, 17 Feb 2013
