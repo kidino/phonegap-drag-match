@@ -14,3 +14,5 @@ Before I forget, I use images from members at DeviantArt.com. I include links to
 Alright, that's all for now.
 
 DINO, 17 Feb 2013
+
+![Alt A](https://raw.github.com/kidino/phonegap-drag-match/master/img/item_a.png) ![Alt B](https://raw.github.com/kidino/phonegap-drag-match/master/img/item_b.png) ![Alt C](https://raw.github.com/kidino/phonegap-drag-match/master/img/item_c.png)
