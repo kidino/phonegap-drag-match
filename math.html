@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+		<meta name="viewport" content="width=device-width,target-densitydpi=device-dpi, user-scalable=no" />
+
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/animate.css">
+        <link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/mvboli.css" type="text/css" charset="utf-8" />
+	<style type="text/css">
+	
+			body * {
+			    outline: none;
+			    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+			    -webkit-focus-ring-color:  rgba(0, 0, 0, 0);
+				box-sizing: border-size;			    
+			}	
+	
+			#items *, #targets * {
+				font-family: 'mv_boliregular';
+				text-shadow: 1px 1px #333;
+			}
+			
+			body {
+				background-color: #333;  
+				background-image: url(img/starring.png);
+			}			
+			
+			#items { text-align: center; 
+				background-color: #e9b988; 
+				padding: 20px 0px;
+				border-bottom: 20px solid #e1940f;
+				background-image: url(img/tileable_wood_texture.png);
+			}
+			
+			#targets { clear: both; z-index: 5; text-align: center; }
+			
+			.draggable {
+				display: inline-block;
+				width: 100px; height: 100px;
+				color: #fff;
+				box-sizing: border-size;
+				border-radius: 20px;
+				text-align: center;
+				vertical-align: center;
+				font-size: 80px;
+				line-height: 100px;
+				padding: 0px;
+				margin-top: 10px;
+				margin-left: 10px;
+				z-index: 20;
+			}
+			
+			.droppable {
+				display: inline-block;
+				width: 120px; height: 200px;
+				color: #fff;
+				box-sizing: border-size;
+				border-radius: 20px;
+				text-align: right;
+				vertical-align: center;
+				font-size: 70px;
+				line-height: 60px;
+				padding: 0px;
+				margin-top: 10px;
+				margin-left: 10px;
+				padding-right: 20px;
+				padding-top: 20px;
+				z-index: 10;
+				overflow:hidden;
+			}
+			
+			#topbar {
+				background-color: #e1940f;
+				padding: 10px;
+				overflow: hidden;
+				border-bottom: 5px solid #666;
+			}
+			
+			#topbar a.backbutton {
+				padding: 3px 8px;
+				background-color: #fff;
+				color: #e1940f;
+				text-decoration: none;
+				float: left;
+				border-radius: 10px;
+				font-size: 36px;
+			}
+			
+			#topbar a.backbutton:visited {
+				color: #e1940f;
+			}
+			
+						
+		</style>
+        <script src="../cordova-2.2.0.js"></script>
+		
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body onload="do_load()">
+
+		<div id="mainarea">
+			<div id="topbar">
+				<a href="javascript:void(0);" class="backbutton" >BACK</a>
+			</div>
+						<div id="items">
+			</div>
+			<div id="targets">
+			</div>
+		</div>
+
+        <script src="js/vendor/jquery-1.9.0.min.js"></script> 
+        <script src="js/vendor/animation.js"></script> 
+        <script src="js/vendor/jquery-ui-1.10.0.min.js"></script> 
+        <script src="js/vendor/touch.punch.js"></script> 
+        <script src="js/rcolor.js"></script> 
+		<script>
+        var do_load = function(){
+        	document.addEventListener("deviceready", do_deviceready, false);
+        }
+		
+		var color1 = new RColor;
+		var completed = 0;	
+		var total_quiz = 12;	
+		var yeay;
+		var pling;
+		
+		// this is where it starts 
+		var do_deviceready = function(){
+						
+			yeay = new Media("/android_asset/www/drag-match/audio/yeay.mp3");
+			pling = new Media("/android_asset/www/drag-match/audio/pling.mp3");
+			
+			play();
+			
+			$('.backbutton').click(function(){
+				navigator.app.backHistory();
+			});			
+			
+		}        
+        
+		// array shuffler
+		Array.prototype.shuffle = function() {
+		  var i = this.length, j, tempi, tempj;
+		  if ( i == 0 ) return false;
+		  while ( --i ) {
+			 j       = Math.floor( Math.random() * ( i + 1 ) );
+			 tempi   = this[i];
+			 tempj   = this[j];
+			 this[i] = tempj;
+			 this[j] = tempi;
+		  }
+		  return this;
+		}
+		
+		// question object -- takes n as the sequence to the question 
+		var question = function(n)
+		{
+			var ops = ["+","-"];		
+			this.result = -1;
+			while ( (this.result < 0) || (this.result > 9) ) { // limit results between 0 to 9 
+				this.number1 = Math.floor( Math.random() * 9 ) + 1; // limiting number between 1 to 9 
+				this.number2 = Math.floor( Math.random() * 9 ) + 1; // limiting second number between 1 to 9 
+				this.op = ops[ Math.floor( Math.random() * 2 ) ]; // doing plus or minus operations only 
+				this.result = (this.op == "+") ? this.number1 + this.number2 : this.number1 - this.number2;
+			}
+			this.name = 'item-'+n; // giving it a name for drag-drop matching later  
+		}	
+		
+		// let's build the quiz 
+		var play = function(){
+			// reset values for new round 
+			$('#dragmatch-congrats').remove();			
+			$('#items').html('');
+			$('#targets').html('');
+			completed = 0;
+			var quizes = [];
+			
+			// building the set of questions
+			for(var i = 0; i < total_quiz; i++) {
+				var q = new question(i);			
+				quizes.push( q );
+			}
+			// building answers, draggable items 
+			for(var j = 0; j < quizes.length; j++) {
+				var c = color1.get(false);
+				var rgba = 'rgba('+c[0]+','+c[1]+','+c[2]+',0.7)';
+				$('#items').append('<div id="'+ quizes[j].name +'" class="draggable item-'+ quizes[j].result +'" style="background-color:'+rgba+';">'+quizes[j].result+'</div>');
+			}
+			
+			quizes.shuffle(); // reshuffle the questions 
+			// building the questions, droppable items
+			for(var j = 0; j < quizes.length; j++) {
+				var c = color1.get(true);
+				$('#targets').append('<div class="target-'+quizes[j].result+' droppable" style="background-color:'+c+';" id="target-'+ quizes[j].name +'" >'+quizes[j].number1+'<br/><u>'+quizes[j].op+quizes[j].number2+'</u></div>');
+				$('#target-'+ quizes[j].name).droppable({ 
+					accept:'.item-'+quizes[j].result,  
+					tolerance: "intersect",
+					drop: function( event, ui ) {
+						pling.play(); // play pling drop sound 
+						ui.draggable.css('visibility','hidden');
+						$(this).append('<br/>'+ui.draggable.html());
+						$(this).droppable('disable');
+						completed++;
+						// did the kid finished the quiz? 
+						if (completed == quizes.length) {
+							var lmar = parseInt((window.innerWidth - 400) / 2);
+							// checkout onclick inside the image below -- it will do play() to play another round 
+							$('body').append('<div id="dragmatch-congrats" class="animated hinged fadeInUpBig" style="position: absolute; border:5px solid #d10782; top: 100px; width: 400px; text-align: center; border-radius: 20px; background-color: #f644b1; margin-left:'+lmar+'px"><h1>Congratulations!</h1><br/><img src="img/replay.png" id="replay" onclick="play();"><br/><br/></div>');
+							yeay.play(); // play yeay souynd 
+						}
+					}
+				});	
+			}
+			
+			// assigning draggable event to answers
+			/*
+				we do this after creating the 'answers' because we need to define the
+				'target' object, which is the answers. can't do that when it's not on
+				the webview yet.
+			*/
+			for(var x = 0; x < quizes.length; x++){
+				$('#'+quizes[x].name).draggable({ revert:'invalid', snap:'.target-'+quizes[x].result, snapMode: 'inner', snapTolerance: 50 });
+			}
+						
+		}
+		
+
+		</script>
+    </body>
+</html>
