@@ -121,6 +121,13 @@
 		<script>
         var do_load = function(){
         	document.addEventListener("deviceready", do_deviceready, false);
+        	
+			if ( window.innerWidth <= 480 ) { 
+				$('.draggable').width( parseInt(100 * 0.6) ).height( parseInt(100 * 0.6) ).css('font-size', parseInt(80 * 0.6)+'px'); 
+				$('.droppable').width( parseInt(120 * 0.6) ).height( parseInt(200 * 0.6) ).css('font-size', parseInt(70 * 0.6)+'px');
+			}
+        	
+        	
         }
 		
 		var color1 = new RColor;

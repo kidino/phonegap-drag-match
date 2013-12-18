@@ -14,12 +14,37 @@ body * {
     -webkit-focus-ring-color:  rgba(0, 0, 0, 0);
 }
 
-h1 { width: 200px; margin: 10px auto; background-color: #333; }
+h1 { width: 200px; margin: 10px auto; background-color: #666; }
 h1 a { width: 100%; text-decoration: none; color: #fff; display: block; text-align: center; }
 
 h1 a:hover { color: #ccc; }
 
+#credits-box {
+	position: absolute;
+	top: 20px; left: 20px; right: 20px; bottom: 20px;
+	box-shadow: 0px 0px 10px #777;
+	background-color: #fff;
+	display: none;
+}
 
+#credits-container {
+	width:100%; height: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+#credits-content {
+	position: absolute;
+	overflow: hidden;
+	padding: 10px;
+	box-sizing: border-size;
+}
+
+#credits-content p {
+}
+
+
+#wrapper { width: 200px; margin: auto; }
 </style>
 
         <link rel="stylesheet" href="css/normalize.min.css">
@@ -28,17 +53,155 @@ h1 a:hover { color: #ccc; }
 
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
-    <body>
+    <body onload="do_load()">
 
+<div id="wrapper">
 			<h1><a href="count.html">COUNT</a></h1>
 			<h1><a href="shapes.html">SHAPES</a></h1>
 			<h1><a href="numbers.html">NUMBERS</a></h1>
 			<h1><a href="math.html">MATHS</a></h1>
 			<h1><a href="abc.html">A-B-C</a></h1>
+			<h1><a href="javascript:void(0);" id="credits">- credits -</a></h1>
+			<h1><a href="javascript:showlist(mylist)">LIST 1</a></h1>
+			<h1><a href="javascript:showlist(differentlist)">LIST 2</a></h1>
+</div>
+
+<div id="credits-box" style="display: none;">
+	<div id="credits-container">
+		<div id="credits-content">
+		
+				<p align="center"><img src="img/imanakid.jpg" /></p>
+		
+				<p>Voice talent by Iman Iszuddin and Akid Iszuddin.</p>
+		
+				<p>I use these sources from users of DeviantArt.com for the images in the ABC Drag-and-Match. I do my best to make sure that I didn't use any photos that was specifically mentioned is a commissioned work, or that the user said not to use. If you are the creator any of these images and you don't want them to be used here, please let me know and I will remove them ASAP.</p>
+				
+				<p>Otherwise, I thank you for your work...</p>
+				
+				<p>A - <a target="_system" href="http://derlaine8.deviantart.com/art/APPLE-152634273">http://derlaine8.deviantart.com/art/APPLE-152634273</a></p>
+				
+				<p>B - <a target="_system" href="http://stjowh.deviantart.com/art/Soccer-Ball-176879741">http://stjowh.deviantart.com/art/Soccer-Ball-176879741</a></p>
+				
+				<p>C - <a target="_system" href="http://tigon.deviantart.com/art/Kittypet-Keiser-167637401">http://tigon.deviantart.com/art/Kittypet-Keiser-167637401</a></p>
+				
+				<p>D - <a target="_system" href="http://kamirah.deviantart.com/art/Random-dog-character-159553501">http://kamirah.deviantart.com/art/Random-dog-character-159553501</a></p>
+				
+				<p>E - <a target="_system" href="http://sebostian.deviantart.com/art/Egg-194093273">http://sebostian.deviantart.com/art/Egg-194093273</a></p>
+				
+				<p>F - <a target="_system" href="http://marimoreno.deviantart.com/art/Frog-200145584">http://marimoreno.deviantart.com/art/Frog-200145584</a></p>
+				
+				<p>G - <a target="_system" href="http://mkiko.deviantart.com/art/goat-46576017">http://mkiko.deviantart.com/art/goat-46576017</a></p>
+				
+				<p>H - <a target="_system" href="http://mmark.deviantart.com/art/running-horse-109500066">http://mmark.deviantart.com/art/running-horse-109500066</a></p>
+				
+				<p>I - <a target="_system" href="http://saitanus.deviantart.com/art/MLP-ice-cream-3-319864157">http://saitanus.deviantart.com/art/MLP-ice-cream-3-319864157</a></p>
+				
+				<p>J - <a target="_system" href="http://capsize-beautiful.deviantart.com/art/Jar-116330737">http://capsize-beautiful.deviantart.com/art/Jar-116330737</a></p>
+				
+				<p>K - <a target="_system" href="http://nabhan.deviantart.com/art/The-Kite-59623030">http://nabhan.deviantart.com/art/The-Kite-59623030</a></p>
+				
+				<p>L - <a target="_system" href="http://spexstudio.deviantart.com/art/Lamp-04-37568569">http://spexstudio.deviantart.com/art/Lamp-04-37568569</a></p>
+				
+				<p>M - <a target="_system" href="http://racependleton.deviantart.com/art/Crescent-Moon-20323028">http://racependleton.deviantart.com/art/Crescent-Moon-20323028</a></p>
+				
+				<p>N - <a target="_system" href="http://ananyah.deviantart.com/art/Notebook-15054150">http://ananyah.deviantart.com/art/Notebook-15054150</a></p>
+				
+				<p>O - <a target="_system" href="http://noctua-nigrum.deviantart.com/art/Fat-Owl-290560931">http://noctua-nigrum.deviantart.com/art/Fat-Owl-290560931</a></p>
+				
+				<p>P - <a target="_system" href="http://browse.deviantart.com/art/Penguin-chick-desktop-image-122855952">http://browse.deviantart.com/art/Penguin-chick-desktop-image-122855952</a></p>
+				
+				<p>Q - <a target="_system" href="http://umedama.deviantart.com/art/Queen-158059321">http://umedama.deviantart.com/art/Queen-158059321</a></p>
+				
+				<p>R - <a target="_system" href="http://dgreene.deviantart.com/art/Sapphire-ring-79064008">http://dgreene.deviantart.com/art/Sapphire-ring-79064008</a></p>
+				
+				<p>S - <a target="_system" href="http://ncio.deviantart.com/art/Snowman-146717529">http://ncio.deviantart.com/art/Snowman-146717529</a></p>
+				
+				<p>T - <a target="_system" href="http://tripio.deviantart.com/art/Vectorial-Mixer-Truck-75207347">http://tripio.deviantart.com/art/Vectorial-Mixer-Truck-75207347</a></p>
+				
+				<p>U - <a target="_system" href="http://employa.deviantart.com/art/The-Umbrella-371168">http://employa.deviantart.com/art/The-Umbrella-371168</a></p>
+				
+				<p>V - <a target="_system" href="http://aarongraphics.deviantart.com/art/HEREND-PORCELAIN-VASE-292056918">http://aarongraphics.deviantart.com/art/HEREND-PORCELAIN-VASE-292056918</a></p>
+				
+				<p>W - <a target="_system" href="http://kaykaykit.deviantart.com/art/Humpback-Whale-4865912">http://kaykaykit.deviantart.com/art/Humpback-Whale-4865912</a></p>
+				
+				<p>X - <a target="_system" href="http://md-arts.deviantart.com/art/Ribs-X-Ray-157780570">http://md-arts.deviantart.com/art/Ribs-X-Ray-157780570</a></p>
+				
+				<p>Y - <a target="_system" href="http://biotwist.deviantart.com/art/ninja-yo-yo-187997054">http://biotwist.deviantart.com/art/ninja-yo-yo-187997054</a></p>
+				
+				<p>Z - <a target="_system" href="http://befehr.deviantart.com/art/Zipper-92794753">http://befehr.deviantart.com/art/Zipper-92794753</a></p>
+				
+				<p>Thank you</p>
+    		</div>
+	</div>
+</div>
+        <script src="../cordova-2.2.0.js"></script>
 
         <script src="js/vendor/jquery-1.9.0.min.js"></script> 
         <script src="js/vendor/jquery-ui-1.10.0.min.js"></script> 
+        <script src="js/vendor/animation.js"></script> 
         <script src="js/vendor/touch.punch.js"></script> 
+
+<script>
+
+var do_load = function(){
+	document.addEventListener("deviceready", do_deviceready, false);
+}
+
+var mylist = [
+			"Alert List Title", // this is the title 
+          	"Item Number 1", 
+          	"Item Number 2", 
+          	"Item Number 3", 
+          	"Item Number 4", 
+          	"Item Number 5", 
+          	"Item Number 6", 
+          	"Item Number 7", 
+          	"Item Number 8", 
+          	"Item Number 9", 
+          	"Item Number 10" 
+          ];
+          
+var differentlist = [
+			"The Fruit List Title", // this is the title 
+          	"Orange", 
+          	"Apple", 
+          	"Watermelon", 
+          	"Papaya", 
+          	"Banana", 
+          	"Pear" 
+          ];
+
+function showlist(thelist) {
+
+	cordova.exec(
+			function(listitem) {
+				alert( "You selected "+ thelist[listitem] );
+			}, 
+			function(error) {
+				alert("Error Occured");
+			}, "AlertList", "alertlist", thelist );
+}
+
+
+var do_deviceready = function(){	
+	console.log('I AM ready');
+	
+	$("#credits").click(function(){
+		$("#credits-content").css('top', '0px');		
+		$("#credits-box").show();
+		var slen = $("#credits-content").height() + 100;
+		setTimeout( function(){
+			$("#credits-content").animate({ top: '-'+slen }, 20000, 'linear', function(){ $("#credits-box").hide(); });
+		},1000);		
+	});
+	
+	$("#credits-content").click(function(){
+		$("#credit-box").hide();
+	});
+
+};
+
+</script>
 
     </body>
 </html>

@@ -122,16 +122,33 @@
 				data.push( abc_data[x] );
 			}
 			
-			// populating four answers in the #items area 
+			// populating four answers in the #items area
+			
+			var normal_screen_width = 720;
+			var normal_item_width = 150;
+			var normal_ratio = 150 / normal_screen_width;
+			
+//			alert(window.innerWidth+" - "+window.innerHeight);
+			
+			var this_item_width = normal_screen_width * normal_ratio; 
+				
 			for(var j = 0; j < data.length; j++) {
-				$('#items').append('<div id="item-'+ data[j].name +'" class="draggable item-'+ data[j].name +'" style="height:'+ data[j].iheight +';width:'+ data[j].iwidth +';"><img src="'+ data[j].item+'"></div>');
+				
+				var item_height = ( window.innerWidth > 480 ) ? data[j].iheight : parseInt( data[j].iheight * 0.6 );
+				var item_width = ( window.innerWidth > 480 ) ? data[j].iwidth : parseInt( data[j].iwidth * 0.6 );
+				
+				$('#items').append('<div id="item-'+ data[j].name +'" class="draggable item-'+ data[j].name +'" style="height:'+ item_height +'px;width:'+ item_width +'px;"><img src="'+ data[j].item+'" style="height:'+ item_height +'px;width:'+ item_width +'px;"></div>');
 			}
 			
 			// reshuffling the arrangement of data and populating into 
 			// #targets area with some droppable event settings  
 			data.shuffle();
 			for(var j = 0; j < data.length; j++) {
-				$('#targets').append('<div data-dropsound="'+data[j].dropsound+'" data-correct="'+data[j].correct+'" id="target-'+ data[j].name +'" class="droppable target-'+ data[j].name +'" style="display:inline-block; height:'+ data[j].theight +';width:'+ data[j].twidth +';"><img src="'+ data[j].target+'" /></div>');
+				
+				var target_height = ( window.innerWidth > 480 ) ? data[j].theight : parseInt( data[j].theight * 0.6 );
+				var target_width = ( window.innerWidth > 480 ) ? data[j].twidth : parseInt( data[j].twidth * 0.6 );
+				
+				$('#targets').append('<div data-dropsound="'+data[j].dropsound+'" data-correct="'+data[j].correct+'" id="target-'+ data[j].name +'" class="droppable target-'+ data[j].name +'" style="display:inline-block; height:'+ target_height +'px;width:'+ target_width +'px;"><img src="'+ data[j].target+'"  style="height:'+ target_height +'px;width:'+ target_width +'px;" /></div>');
 				$('#target-'+ data[j].name).droppable({ 
 					accept:'#item-'+data[j].name,  
 					tolerance: "intersect",
@@ -144,7 +161,7 @@
 						completed++;
 						if (completed == data.length) { // all has been dropped successfully 
 							var lmar = parseInt((window.innerWidth - 400) / 2); // 400 is #dragmatch-congrats length -- to get left margin
-							setTimeout( function(){ 
+							setTimeout( function(){ 								
 								$('body').append('<div id="dragmatch-congrats" class="animated hinged fadeInUpBig" style="position: absolute; border:5px solid #d10782; top: 100px; width: 400px; text-align: center; border-radius: 20px; background-color: #f644b1; margin-left:'+lmar+'px"><h1>Congratulations!</h1><br/><img src="img/replay.png" id="replay" onclick="play();"><br/><br/></div>');
 								var yeay = new Media("/android_asset/www/drag-match/audio/yeay.mp3", function(){ yeay.release(); });  // important to release media object after play 
 								yeay.play();
