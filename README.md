@@ -1,6 +1,8 @@
 Simple Example for Phonegap Drag-n-Match App
 ============================================
 
+See video : https://www.facebook.com/iszuddin/videos/10151251751261174/
+
 You can build an app for your kids too. A simple Drag-and-Match app built with Phonegap, jQuery, jQueryUI and Touch Punch.
 
 Please note that this is still a work in progress. It's not an official release, be it beta, alpha or whatever. Plus I suck and versioning and very new to Git and Github.
